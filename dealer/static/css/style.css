@@ -1,0 +1,19 @@
+div.player.active {
+    background: green;
+}
+
+div.player.inactive {
+    background: red;
+}
+
+span#account {
+    color: black !important;
+}
+
+.actual span {
+    color: black !important;   
+}
+
+.actual{
+    float: right;
+}
