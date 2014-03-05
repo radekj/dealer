@@ -5,9 +5,9 @@ from collections import deque
 from pokereval.card import Card
 from pokereval.hand_evaluator import HandEvaluator
 
-from .cards import Cards
-from .players import players, Player
-from . import config
+from dealer.cards import Cards
+from dealer.players import Player
+from dealer import config
 
 phases = ('pre-flop', 'flop', 'turn', 'river')
 cards_for_phase = {'pre-flop':0, 'flop':3, 'turn':4, 'river':5}
@@ -17,7 +17,8 @@ class Game:
 
     def __init__(self):
         self.distribution = 1
-        self.players = deque([Player(name, color) for color, name in config.PLAYERS.items()])
+        self.players = deque([Player(player_id, player_data)
+                for player_id, player_data in config.PLAYERS.items()])
 
     def shuffle(self):
         random.shuffle(self.cards.deck)
