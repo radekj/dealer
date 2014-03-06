@@ -34,12 +34,12 @@
 
     <div id="players">
       <tal:player repeat="player players">
-        <div class="player ${player.active and 'active' or 'inactive'}" style="color: ${player.color};">
+        <div class="player ${player.active and 'active' or 'inactive'} ${player.winner and 'winner' or 'looser'}" style="color: ${player.color};">
           <span tal:content="player.name"></span>
           <img tal:repeat="card player.hand" src="${request.static_url('dealer:static/img/%s' % view.card_image_name(card))}" />
           <span id="account" tal:content="player.account"></span>          
           <div class="actual" tal:condition="python: actual_player == player.name">
-            <span id="bet">Player's bet: <span tal:replace="bet"/></span>
+            <span id="bet">Player's bet: <span tal:replace="player.deal_bet"/></span>
             <img src="${request.static_url('dealer:static/img/arrow.png')}" />
           </div>
         </div>
@@ -48,6 +48,7 @@
 
     <div id="pot">
       POT: <span tal:content="pot" />
+      BET: <span tal:content="bet" />
     </div>
   </div>
 </body>

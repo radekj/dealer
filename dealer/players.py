@@ -16,10 +16,14 @@ class Player:
         self.name = player_data['name']
         self.color = player_data['color']
         self.address = player_data['address']
+        self.deal_bet = 0
+        self.winner = False
 
     def new_distribution(self):
         self.hand = []
         self.active = True
+        self.deal_bet = 0
+        self.winner = False
 
     def bet(self, data):
         #player_bet = random.choice([1, 1, 2, 3, 4, 5])

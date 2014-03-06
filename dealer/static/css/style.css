@@ -6,6 +6,10 @@ div.player.inactive {
     background: red;
 }
 
+div.player.winner {
+    background: yellow !important;
+}
+
 span#account {
     color: black !important;
 }

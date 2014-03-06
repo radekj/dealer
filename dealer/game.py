@@ -32,16 +32,21 @@ class Game:
         if getattr(self, 'pot', None):
             winner = self.winner()
             winner.account += self.pot
+            if not self.shown:
+                self.bet = 1
+                self.shown = True
+                return
         self.cards = Cards()
         self.phases = iter(phases)
         self.phase = next(self.phases)
         self.pot = 0
         self.distribution += 1
         self.rotate_players()
-        self.players_iter = iter(self.players)
+        self.players_iter = itertools.cycle(self.players)
         self.shuffle()
         self.deal()
-        self.bet = None
+        self.bet = 0
+        self.shown = False
 
     def rotate_players(self):
         for player in self.players:
@@ -52,35 +57,48 @@ class Game:
         try:
             self.phase = next(self.phases)
         except StopIteration:
-            self.next_deal()
-        self.players_iter = iter(self.players)
+            return self.next_deal()
+
+        for player in self.players:
+            player.deal_bet = 0
+        self.bet = 0
+        self.players_iter = itertools.cycle(self.players)
 
     def play(self):
-        if len([i for i in self.players if i.active]) > 1:
-            for player in self.players_iter:
-                if player.active:
-                    data = {
-                        'table': [],
-                        'min': 0,
-                        'bids': {},
-                    }
-                    self.actual_player = player.name
-                    bet = player.bet(data)
-                    bet = self.validate_bet(player, bet, data)
-                    self.pot += bet
-                    self.bet = bet
-                    return
+        active_players = len([i for i in self.players if i.active]) > 1
+        all_equal = len(set([i.deal_bet for i in self.players if i.active])) == 1
+
+        if active_players:
+            if not all_equal or not self.bet:
+                for player in self.players_iter:
+                    if player.active:
+                        data = {
+                            'table': [],
+                            'min': self.bet - player.deal_bet,
+                            'max': player.deal_bet > 0,
+                            'bids': {},
+                        }
+                        self.actual_player = player.name
+                        bet = player.bet(data)
+                        bet = self.validate_bet(player, bet, data)
+                        if bet:
+                            player.deal_bet += bet
+                            self.bet = player.deal_bet
+                        self.pot += bet
+                        return
             self.next_phase()
             self.actual_player = None
         else:
+            self.actual_player = None
             self.next_deal()
 
     def validate_bet(self, player, bet, data):
         if bet:
-            player.account -= bet
-        else:
-            player.active = False
-        return bet
+            if player.deal_bet + bet >= self.bet:
+                player.account -= bet
+                return bet
+        player.active = False
+        return 0
 
     def winner(self):
         winner = None
@@ -88,12 +106,13 @@ class Game:
         for player in  self.players:
             if not player.active:
                 continue
-            print(player.name, player.hand_value(table))
+            #print(player.name, player.hand_value(table))
             if not winner:
                 winner = player
                 continue
             if player.hand_value(table) > winner.hand_value(table):
                 winner = player
+        winner.winner = True
         return winner
 
 game = Game()
