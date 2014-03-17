@@ -1,4 +1,6 @@
 START_ACCOUNT = 500
+SMALL_BLIND = 1
+BIG_BLIND = 2
 PLAYERS = {
     'player1': {
         'name': 'Radek',
@@ -24,6 +26,18 @@ PLAYERS = {
         'account': START_ACCOUNT,
         'address': 'localhost:4000',
     },
+    # 'player5': {
+    #     'name': 'Adrian',
+    #     'color': '#FFFF00',
+    #     'account': START_ACCOUNT,
+    #     'address': 'localhost:4000',
+    # },
+    # 'player6': {
+    #     'name': 'Łukasz',
+    #     'color': '#00FFFF',
+    #     'account': START_ACCOUNT,
+    #     'address': 'localhost:4000',
+    # },
 }
 
 

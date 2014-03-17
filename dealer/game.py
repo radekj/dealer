@@ -10,7 +10,7 @@ from dealer.players import Player
 from dealer import config
 
 phases = ('pre-flop', 'flop', 'turn', 'river')
-cards_for_phase = {'pre-flop':0, 'flop':3, 'turn':4, 'river':5}
+cards_for_phase = {'pre-flop': 0, 'flop': 3, 'turn': 4, 'river': 5}
 
 
 class Game:
@@ -47,6 +47,7 @@ class Game:
         self.deal()
         self.bet = 0
         self.shown = False
+        self.num = 0
 
     def rotate_players(self):
         for player in self.players:
@@ -62,6 +63,7 @@ class Game:
         for player in self.players:
             player.deal_bet = 0
         self.bet = 0
+        self.num = 0
         self.players_iter = itertools.cycle(self.players)
 
     def play(self):
@@ -71,16 +73,30 @@ class Game:
         if active_players:
             if not all_equal or not self.bet:
                 for player in self.players_iter:
+                    if self.num == len(self.players) and not self.bet:
+                        break
+                    blind = 0
+                    if self.phase == 'pre-flop' and self.num == 0:
+                        blind = config.SMALL_BLIND
+                    elif self.phase == 'pre-flop' and self.num == 1:
+                        blind = config.BIG_BLIND
+                    self.num += 1
                     if player.active:
                         data = {
-                            'table': [],
+                            'hand': player.hand,
+                            'table': self.cards.deck[:cards_for_phase[self.phase]],
                             'min': self.bet - player.deal_bet,
-                            'max': player.deal_bet > 0,
+                            'can_raise': not player.deal_bet > 0,
                             'bids': {},
+                            'pot': self.pot,
+                            'account': player.account,
                         }
                         self.actual_player = player.name
-                        bet = player.bet(data)
-                        bet = self.validate_bet(player, bet, data)
+                        if not blind:
+                            bet = player.bet(data)
+                            bet = self.validate_bet(player, bet, data)
+                        else:
+                            bet = blind
                         if bet:
                             player.deal_bet += bet
                             self.bet = player.deal_bet
@@ -97,7 +113,8 @@ class Game:
             if player.deal_bet + bet >= self.bet:
                 player.account -= bet
                 return bet
-        player.active = False
+        if data.get('min'):
+            player.active = False
         return 0
 
     def winner(self):
