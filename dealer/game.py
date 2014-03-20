@@ -90,6 +90,7 @@ class Game:
                             'bids': {},
                             'pot': self.pot,
                             'account': player.account,
+                            'limit': config.MAX_BET_LIMIT,
                         }
                         self.actual_player = player.name
                         if not blind:
@@ -97,6 +98,7 @@ class Game:
                             bet = self.validate_bet(player, bet, data)
                         else:
                             bet = blind
+                            player.account -= bet
                         if bet:
                             player.deal_bet += bet
                             self.bet = player.deal_bet
