@@ -1,7 +1,2 @@
-- response validation
-- restore custom state procedure
-- restore last state procedure
-- test edge cases (player out of money, equal cards, all players check,
-  response validation, ...)
-- add other players betting announcement for player algorithm enhancement
-  purposes
+- save and restore custom state procedure
+- test edge cases (equal cards values, check color evaluation ...)

@@ -55,6 +55,7 @@ class Game:
         for player in self.players:
             player.new_distribution()
         self.players.rotate()
+        self.players = deque([i for i in self.players if i.active])
 
     def next_phase(self):
         try:
@@ -89,7 +90,6 @@ class Game:
                             'table': self.cards.deck[:cards_for_phase[self.phase]],
                             'min': self.bet - player.deal_bet,
                             'can_raise': not player.deal_bet > 0,
-                            'bids': {},
                             'pot': self.pot,
                             'account': player.account,
                             'limit': config.MAX_BET_LIMIT,
@@ -97,10 +97,11 @@ class Game:
                         self.actual_player = player.name
                         if not blind:
                             bet = player.bet(data)
-                            bet = self.validate_bet(player, bet, data)
+                            bet = self.process_bet(player, bet, data)
                         else:
                             bet = blind
-                            player.account -= bet
+                            self.process_bet(player, bet, data)
+                            #player.account -= bet
                         if bet:
                             player.deal_bet += bet
                             self.bet = player.deal_bet
@@ -112,7 +113,8 @@ class Game:
             self.actual_player = None
             self.next_deal()
 
-    def validate_bet(self, player, bet, data):
+    def process_bet(self, player, bet, data):
+        bet = self.validate_bet(player, bet, data)
         if bet:
             if player.deal_bet + bet >= self.bet:
                 player.account -= bet
@@ -120,6 +122,17 @@ class Game:
         if data.get('min'):
             player.active = False
         return 0
+
+    def validate_bet(self, player, bet, data):
+        try:
+            assert (bet <= data['limit'] + data['min'])
+            assert (bet >= data['min'] or bet == 0)
+            assert (bet <= data['account'])
+            if not data['can_raise']:
+                assert (bet == 0 or bet == data['min'])
+            return bet
+        except AssertionError:
+            return 0
 
     def winner(self):
         winner = None
