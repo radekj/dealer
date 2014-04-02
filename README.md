@@ -1,20 +1,19 @@
-================
 Poker Dealer app
 ================
 
 Rules
-=====
+-----
+
+[Wikipedia - Texas Hold'em](http://pl.wikipedia.org/wiki/Texas_Hold%27em)
+
 
 Installation
-============
+------------
 
-TODO
-====
-- response validation
-- restore custom state procedure
-- restore last state procedure
-- test edge cases (player out of money, equal cards, all players check,
-  response validation, ...)
-- add other players betting announcement for player algorithm enhancement
-  purposes
-- documentation
+See [dealer-buildout README](https://github.com/radekj/dealer-buildout/blob/master/README.md)
+
+
+Author
+------
+
+Radosław Jankiewicz (radoslaw.jankiewicz@gmail.com)

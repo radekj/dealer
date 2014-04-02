@@ -1,7 +1,6 @@
 import unittest
 
 from pyramid import testing
-from webtest import TestApp
 from collections import deque
 
 
@@ -36,6 +35,7 @@ class ViewTests(unittest.TestCase):
 class FunctionalTests(unittest.TestCase):
     def setUp(self):
         from dealer import main
+        from webtest import TestApp
         self.testapp = TestApp(main({}))
 
     def test_home(self):
