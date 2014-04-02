@@ -14,7 +14,11 @@ requires = [
     'pyramid_chameleon',
     'pyramid_debugtoolbar',
     'waitress',
-    ]
+]
+
+tests_require = requires + [
+    'webtest',
+]
 
 setup(name='dealer',
       version='0.1',
@@ -35,7 +39,8 @@ setup(name='dealer',
       include_package_data=True,
       zip_safe=False,
       install_requires=requires,
-      tests_require=requires,
+      extras_require={'test': tests_require},
+      tests_require=tests_require,
       test_suite="dealer",
       entry_points="""\
       [paste.app_factory]
