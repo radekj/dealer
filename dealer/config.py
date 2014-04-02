@@ -40,5 +40,3 @@ PLAYERS = {
     #     'address': 'localhost:4000',
     # },
 }
-
-

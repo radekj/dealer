@@ -21,8 +21,10 @@ class ViewTests(unittest.TestCase):
         view = TableView(request)
         data = view.display_table()
 
-        self.assertIn(data['actual_player'],
-                     [player['name'] for player in PLAYERS.values()])
+        self.assertIn(
+            data['actual_player'],
+            [player['name'] for player in PLAYERS.values()]
+        )
         self.assertEquals(data['bet'], 2)
         self.assertEquals(data['distribution'], 2)
         self.assertEquals(data['phase'], 'pre-flop')
