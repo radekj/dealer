@@ -1,6 +1,7 @@
 import unittest
 
 from pyramid import testing
+from collections import deque
 
 
 class ViewTests(unittest.TestCase):
@@ -10,8 +11,36 @@ class ViewTests(unittest.TestCase):
     def tearDown(self):
         testing.tearDown()
 
-    def test_my_view(self):
-        from .views import my_view
+    def test_home_view(self):
+        from .views import TableView
+        from .cards import Cards
+        from .config import PLAYERS
+
         request = testing.DummyRequest()
-        info = my_view(request)
-        self.assertEqual(info['project'], 'dealer')
+        view = TableView(request)
+        data = view.display_table()
+
+        self.assertIn(
+            data['actual_player'],
+            [player['name'] for player in PLAYERS.values()]
+        )
+        self.assertEquals(data['bet'], 2)
+        self.assertEquals(data['distribution'], 2)
+        self.assertEquals(data['phase'], 'pre-flop')
+        self.assertIsInstance(data['players'], deque)
+        self.assertEquals(data['pot'], 3)
+        self.assertIsInstance(data['table'], Cards)
+
+
+class FunctionalTests(unittest.TestCase):
+    def setUp(self):
+        from dealer import main
+        from webtest import TestApp
+        self.testapp = TestApp(main({}))
+
+    def test_home(self):
+        resp = self.testapp.get('/', status=200)
+        body = resp.body.decode(resp.charset)
+        self.assertIn('DISTRIBUTION', body)
+        self.assertIn('BET', body)
+        self.assertIn('POT', body)

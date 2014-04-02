@@ -17,8 +17,10 @@ class Game:
 
     def __init__(self):
         self.distribution = 1
-        self.players = deque([Player(player_id, player_data)
-                for player_id, player_data in config.PLAYERS.items()])
+        self.players = deque([
+            Player(player_id, player_data)
+            for player_id, player_data in config.PLAYERS.items()
+        ])
 
     def shuffle(self):
         random.shuffle(self.cards.deck)
@@ -122,10 +124,9 @@ class Game:
     def winner(self):
         winner = None
         table = self.cards.deck[:5]
-        for player in  self.players:
+        for player in self.players:
             if not player.active:
                 continue
-            #print(player.name, player.hand_value(table))
             if not winner:
                 winner = player
                 continue

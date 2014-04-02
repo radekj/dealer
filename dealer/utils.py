@@ -12,9 +12,11 @@ TRUMPS = {
     'A': 14,
 }
 
+
 def card_image_name(card):
     color, value = card
     return '%s.png' % (color.lower() + value.lower())
+
 
 def translate_to_value(card):
     try:
@@ -23,6 +25,7 @@ def translate_to_value(card):
         value = TRUMPS.get(card[1])
     color = COLORS.get(card[0])
     return (value, color)
+
 
 def card_values(cards):
     cards_translated = map(translate_to_value, cards)

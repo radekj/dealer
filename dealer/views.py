@@ -4,6 +4,7 @@ from .game import game, cards_for_phase
 from .cards import Cards
 from .utils import card_image_name
 
+
 @view_defaults(renderer='templates/table.pt')
 class TableView:
 
