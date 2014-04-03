@@ -72,13 +72,15 @@ div.player div.account{
 
 div.player div.bet {
     float: right;
-    width: 200px;
-    height: 200px;
+    width: 150px;
+    height: 150px;
     text-align: center;
+    margin-top: 20px;
+    margin-right: 20px;
 }
 
 div.player div.bet div{
-    margin-top: 70px;
+    margin-top: 45px;
     font-size: 300%;
     color: #000;
 }
@@ -89,21 +91,21 @@ div.player.actual {
 
 div.player.active div.bet {
     background: url(/static/img/chip-green.png) repeat 0 0 transparent;
-    background-size: 200px 200px;
+    background-size: 150px 150px;
 }
 
 div.player.inactive div.bet {
     background: url(/static/img/chip-gray.png) repeat 0 0 transparent;
-    background-size: 200px 200px;
-}
-
-div.player.winner {
-    background: url(/static/img/highlight-winner.png) repeat 0 0 transparent;
+    background-size: 150px 150px;
 }
 
 div.player.winner div.bet {
     background: url(/static/img/chip-yellow.png) repeat 0 0 transparent;
-    background-size: 200px 200px;
+    background-size: 150px 150px;
+}
+
+div.player.winner {
+    background: url(/static/img/highlight-winner.png) repeat 0 0 transparent;
 }
 
 div.player div.cards {
