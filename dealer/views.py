@@ -13,10 +13,17 @@ class TableView:
 
     def card_image_name(self, card):
         color, value = card
-        return '%s.png' % (color.lower() + value.lower())
+        return '{0}{1}.png'.format(value.upper(), color.upper())
 
     def show_cards(self, phase):
         return cards_for_phase.get(phase)
+
+    def get_results(self):
+        return sorted(
+            game.players, 
+            key=lambda player: player.account, 
+            reverse=True
+        )
 
     @view_config(route_name='home')
     def display_table(self):

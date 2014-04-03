@@ -1,55 +1,85 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" xmlns:tal="http://xml.zope.org/namespaces/tal">
 <head>
-  <title>The Pyramid Web Framework</title>
+  <title>STX Hackathon v3.0</title>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
   <meta name="keywords" content="python web application" />
   <meta name="description" content="pyramid web application" />
   <link rel="shortcut icon" href="${request.static_url('dealer:static/favicon.ico')}" />
-  <script src="${request.static_url('dealer:static/js/jquery-1.10.1.min.js')}"></script>
   <link rel="stylesheet" href="${request.static_url('dealer:static/css/style.css')}" type="text/css" media="screen" charset="utf-8" />
   <!--[if lte IE 6]>
   <link rel="stylesheet" href="${request.static_url('dealer:static/ie6.css')}" type="text/css" media="screen" charset="utf-8" />
   <![endif]-->
-  <script  type="text/javascript">
-    $(document).keydown(function(e){
-      if (e.keyCode == 32) { 
-         location.reload();
-         return false;
-      }
-    }); 
-  </script>
 </head>
 <body>
   <div id="wrap">
-
-    <div id="distribution">
-      DISTRIBUTION: <span tal:content="distribution" />
+    <div id="title">
+        <h1>STX Hackathon v3.0</h1>
+    </div>
+  
+    <div id="game-info">
+      <table>
+        <tr><td>Distribution</td><td tal:content="distribution"></td></tr>
+        <tr><td>Pot</td><td tal:content="pot"></td></tr>
+        <tr><td>Bet</td><td tal:content="bet"></td></tr>
+      </table>
     </div>
 
     <div id="table-cards" tal:define="show_cards python: view.show_cards(phase)">
-      <img tal:repeat="card table.deck[:show_cards]" src="${request.static_url('dealer:static/img/%s' % view.card_image_name(card))}" />
-      <img tal:repeat="card table.deck[:5-show_cards]" src="${request.static_url('dealer:static/img/%s' % 'b1fv.png')}" />
+      <img tal:repeat="card table.deck[:show_cards]" src="${request.static_url('dealer:static/img/cards/%s' % view.card_image_name(card))}" />
+      <img tal:repeat="card table.deck[:5-show_cards]" src="${request.static_url('dealer:static/img/cards/%s' % 'back.png')}" />
+    </div>
+    
+    <div id="results">
+      <table>
+        <tr tal:repeat="player view.get_results()">
+          <td tal:content="player.name"></td>
+          <td tal:content="player.account"></td>
+        </tr>
+      </table>
     </div>
 
     <div id="players">
       <tal:player repeat="player players">
-        <div class="player ${player.active and 'active' or 'inactive'} ${player.winner and 'winner' or 'looser'}" style="color: ${player.color};">
-          <span tal:content="player.name"></span>
-          <img tal:repeat="card player.hand" src="${request.static_url('dealer:static/img/%s' % view.card_image_name(card))}" />
-          <span id="account" tal:content="player.account"></span>          
-          <div class="actual" tal:condition="python: actual_player == player.name">
-            <span id="bet">Player's bet: <span tal:replace="player.deal_bet"/></span>
-            <img src="${request.static_url('dealer:static/img/arrow.png')}" />
+        <div class="player ${'active' if player.active else 'inactive'} ${'actual' if actual_player == player.name else ''} ${'winner' if player.winner else 'looser'}">
+          <div class="head">
+            <div class="info">
+              <div class="name" tal:content="player.name"></div>
+              <div class="account" tal:content="player.account"></div>
+            </div>
+            <div class="bet"><div tal:content="player.deal_bet"/></div>
+          </div>
+          <div class="cards">
+            <img tal:repeat="card player.hand" src="${request.static_url('dealer:static/img/cards/%s' % view.card_image_name(card))}" />
           </div>
         </div>
       </tal:player>
     </div>
 
-    <div id="pot">
-      POT: <span tal:content="pot" />
-      BET: <span tal:content="bet" />
-    </div>
+
   </div>
+  
+  <script src="${request.static_url('dealer:static/js/jquery-1.10.1.min.js')}"></script>
+  <script  type="text/javascript">
+    var active_keys = true;
+    $(document).keydown(function(e){
+      if (active_keys && e.keyCode == 32) {
+        active_keys = false;
+        //location.reload();
+        console.log('asdasd');
+        $.ajax({
+          url: location.href,
+          success: function(result) {
+            $("body").html(result, "body");
+            active_keys = true;
+          }
+        });
+         
+         
+        return false;
+      }
+    }); 
+  </script>
+  
 </body>
 </html>

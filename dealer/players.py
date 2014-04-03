@@ -15,7 +15,6 @@ class Player:
         self.hand = []
         self.account = player_data['account']
         self.name = player_data['name']
-        self.color = player_data['color']
         self.address = player_data['address']
         self.deal_bet = 0
         self.winner = False
