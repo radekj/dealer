@@ -28,7 +28,7 @@ div#game-info, div#table-cards, div#results {
 }
 
 div#game-info {
-    width: 300px;
+    width: 580px;
     float: left;
     font-size: 200%;
 }

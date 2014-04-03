@@ -22,17 +22,20 @@
         <tr><td>Distribution</td><td tal:content="distribution"></td></tr>
         <tr><td>Pot</td><td tal:content="pot"></td></tr>
         <tr><td>Bet</td><td tal:content="bet"></td></tr>
+        <tr tal:condition="winner">
+            <td>Winner</td><td tal:content="winner"></td>
+        </tr>
       </table>
     </div>
 
-    <div id="table-cards" tal:define="show_cards python: view.show_cards(phase)">
-      <img tal:repeat="card table.deck[:show_cards]" src="${request.static_url('dealer:static/img/cards/%s' % view.card_image_name(card))}" />
-      <img tal:repeat="card table.deck[:5-show_cards]" src="${request.static_url('dealer:static/img/cards/%s' % 'back.png')}" />
+    <div id="table-cards">
+      <img tal:repeat="card table.deck[:table_cards]" src="${request.static_url('dealer:static/img/cards/%s' % view.card_image_name(card))}" />
+      <img tal:repeat="card table.deck[:5-table_cards]" src="${request.static_url('dealer:static/img/cards/%s' % 'back.png')}" />
     </div>
     
     <div id="results">
       <table>
-        <tr tal:repeat="player view.get_results()">
+        <tr tal:repeat="player results">
           <td tal:content="player.name"></td>
           <td tal:content="player.account"></td>
         </tr>
@@ -47,7 +50,12 @@
               <div class="name" tal:content="player.name"></div>
               <div class="account" tal:content="player.account"></div>
             </div>
-            <div class="bet"><div tal:content="player.deal_bet"/></div>
+            <div class="bet" tal:condition="winner is None">
+                <div tal:content="player.total_bet()"/>
+            </div>
+            <div class="bet" tal:condition="winner == player.name">
+                <div tal:content="pot"/>
+            </div>
           </div>
           <div class="cards">
             <img tal:repeat="card player.hand" src="${request.static_url('dealer:static/img/cards/%s' % view.card_image_name(card))}" />

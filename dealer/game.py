@@ -16,7 +16,7 @@ cards_for_phase = {'pre-flop': 0, 'flop': 3, 'turn': 4, 'river': 5}
 class Game:
 
     def __init__(self):
-        self.distribution = 1
+        self.distribution = 0
         self.players = deque([
             Player(player_id, player_data)
             for player_id, player_data in config.PLAYERS.items()
@@ -33,11 +33,12 @@ class Game:
     def next_deal(self):
         if getattr(self, 'pot', None):
             winner = self.winner()
-            winner.account += self.pot
             if not self.shown:
-                self.bet = 1
                 self.shown = True
                 return
+            else:
+                winner.account += self.pot
+
         self.cards = Cards()
         self.phases = iter(phases)
         self.phase = next(self.phases)
@@ -64,6 +65,7 @@ class Game:
             return self.next_deal()
 
         for player in self.players:
+            player.prev_bet += player.deal_bet
             player.deal_bet = 0
         self.bet = 0
         self.num = 0

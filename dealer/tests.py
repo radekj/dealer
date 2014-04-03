@@ -25,7 +25,7 @@ class ViewTests(unittest.TestCase):
             [player['name'] for player in PLAYERS.values()]
         )
         self.assertEquals(data['bet'], 10)
-        self.assertEquals(data['distribution'], 2)
+        self.assertEquals(data['distribution'], 1)
         self.assertEquals(data['phase'], 'pre-flop')
         self.assertIsInstance(data['players'], deque)
         self.assertEquals(data['pot'], 15)
