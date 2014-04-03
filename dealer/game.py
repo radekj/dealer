@@ -101,7 +101,6 @@ class Game:
                         else:
                             bet = blind
                             self.process_bet(player, bet, data)
-                            #player.account -= bet
                         if bet:
                             player.deal_bet += bet
                             self.bet = player.deal_bet
@@ -125,6 +124,7 @@ class Game:
 
     def validate_bet(self, player, bet, data):
         try:
+            assert isinstance(bet, int)
             assert (bet <= data['limit'] + data['min'])
             assert (bet >= data['min'] or bet == 0)
             assert (bet <= data['account'])
