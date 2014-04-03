@@ -1,42 +1,52 @@
 START_ACCOUNT = 500
-SMALL_BLIND = 1
-BIG_BLIND = 2
-MAX_BET_LIMIT = 10
+SMALL_BLIND = 5
+BIG_BLIND = 10
+MAX_BET_LIMIT = 20
+
 PLAYERS = {
     'player1': {
-        'name': 'Radek',
-        'color': '#00FF00',
+        'name': 'Styl Pijanego Napierdalaki',
         'account': START_ACCOUNT,
         'address': 'localhost:4000',
     },
     'player2': {
-        'name': 'Andrzej',
-        'color': '#0000FF',
+        'name': 'Imbazaury',
         'account': START_ACCOUNT,
         'address': 'localhost:4000',
     },
     'player3': {
-        'name': 'Marcin',
-        'color': '#FFFF00',
+        'name': 'Mistrzowie Kolonii 2014',
         'account': START_ACCOUNT,
         'address': 'localhost:4000',
     },
     'player4': {
-        'name': 'Piotrek',
-        'color': '#FF00FF',
+        'name': 'Salmandia',
         'account': START_ACCOUNT,
         'address': 'localhost:4000',
     },
     'player5': {
-        'name': 'Adrian',
-        'color': '#FFFF00',
+        'name': 'Power Mergers!',
         'account': START_ACCOUNT,
         'address': 'localhost:4000',
     },
-    # 'player6': {
-    #     'name': 'Łukasz',
-    #     'color': '#00FFFF',
-    #     'account': START_ACCOUNT,
-    #     'address': 'localhost:4000',
-    # },
+    'player6': {
+        'name': 'ssh localhost',
+        'account': START_ACCOUNT,
+        'address': 'localhost:4000',
+    },
+    'player7': {
+        'name': 'Avangersi STXa',
+        'account': START_ACCOUNT,
+        'address': 'localhost:4000',
+    },
+    'player8': {
+        'name': 'Hot-dog Team',
+        'account': START_ACCOUNT,
+        'address': 'localhost:4000',
+    },
+    'player9': {
+        'name': 'PYrates',
+        'account': START_ACCOUNT,
+        'address': 'localhost:4000',
+    },
 }

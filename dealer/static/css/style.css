@@ -1,23 +1,102 @@
-div.player.active {
-    background: green;
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
 }
 
-div.player.inactive {
-    background: red;
+body {
+    background: url(/static/img/background.jpg) repeat 0 0 #fff;
+    font-family: sans-serif;
+    color: #e8ebd0;
 }
 
-div.player.winner {
-    background: yellow !important;
+table td {
+    padding: 0 40px 0 0;
 }
 
-span#account {
-    color: black !important;
+div#title {
+    width: 100%;
+    text-align: center;
+    padding-top: 5px;
 }
 
-.actual span {
-    color: black !important;   
+div#game-info, div#table-cards, div#results {
+    padding: 20px;
+    height: 225px;
+    font-size: 120%;
 }
 
-.actual{
+div#game-info {
+    width: 200px;
+    float: left;
+}
+
+div#table-cards {
+    float: left;
+}
+
+div#results {
     float: right;
+    padding: 0 20px;
+}
+
+div#players {
+    position: fixed;
+    top: 310px;
+    left: 10px;
+}
+
+div.player {
+    width: 380px;
+    height: 380px;
+    float: left;
+}
+
+div.player div.info {
+    float: left;
+    width: 180px;
+    height: 180px;
+}
+div.player div.name{
+    margin: 20px;
+    font-size: 120%;
+}
+
+div.player div.account{
+    margin: 20px;
+    color: #fff;
+    font-size: 200%;
+}
+
+div.player div.bet {
+    float: right;
+    width: 200px;
+    height: 200px;
+    text-align: center;
+}
+
+div.player div.bet div{
+    margin-top: 70px;
+    font-size: 300%;
+    color: #000;
+}
+
+div.player.active div.bet {
+    background: url(/static/img/chip-green.png) repeat 0 0 transparent;
+    background-size: 200px 200px;
+}
+
+div.player.inactive div.bet {
+    background: url(/static/img/chip-gray.png) repeat 0 0 transparent;
+    background-size: 200px 200px;
+}
+
+div.player.winner div.bet {
+    background: url(/static/img/chip-yellow.png) repeat 0 0 transparent;
+    background-size: 200px 200px;
+}
+
+div.player div.cards {
+    padding-top: 200px;
+    padding-left: 10px;
 }
