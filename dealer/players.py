@@ -17,17 +17,22 @@ class Player:
         self.name = player_data['name']
         self.address = player_data['address']
         self.deal_bet = 0
+        self.prev_bet = 0
         self.winner = False
 
     def new_distribution(self):
         self.hand = []
         self.active = self.account > 0
         self.deal_bet = 0
+        self.prev_bet = 0
         self.winner = False
 
     def bet(self, data):
         player_bet = connector.ask_for_decision(self.address, data)
         return player_bet
+
+    def total_bet(self):
+        return self.prev_bet + self.deal_bet
 
     def hand_value(self, table):
         hand = [Card(*card) for card in utils.card_values(self.hand)]

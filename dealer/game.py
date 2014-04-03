@@ -34,11 +34,12 @@ class Game:
     def next_deal(self):
         if getattr(self, 'pot', None):
             winner = self.winner()
-            winner.account += self.pot
             if not self.shown:
-                self.bet = 1
                 self.shown = True
                 return
+            else:
+                winner.account += self.pot
+
         self.cards = Cards()
         self.phases = iter(phases)
         self.phase = next(self.phases)
@@ -65,6 +66,7 @@ class Game:
             return self.next_deal()
 
         for player in self.players:
+            player.prev_bet += player.deal_bet
             player.deal_bet = 0
         self.bet = 0
         self.num = 0

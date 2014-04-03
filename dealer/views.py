@@ -15,19 +15,10 @@ class TableView:
         color, value = card
         return '{0}{1}.png'.format(value.upper(), color.upper())
 
-    def show_cards(self, phase):
-        return cards_for_phase.get(phase)
-
-    def get_results(self):
-        return sorted(
-            game.players,
-            key=lambda player: player.account,
-            reverse=True
-        )
-
     @view_config(route_name='home')
     def display_table(self):
         game.play()
+        winners = [player for player in game.players if player.winner]
         return {
             'table': game.cards,
             'players': game.players,
@@ -35,5 +26,12 @@ class TableView:
             'pot': game.pot,
             'distribution': game.distribution,
             'actual_player': game.actual_player,
-            'bet': game.bet,
+            'bet': max(player.total_bet() for player in game.players),
+            'winner': winners[0].name if winners else None,
+            'table_cards': cards_for_phase.get(game.phase),
+            'results': sorted(
+                game.players,
+                key=lambda player: player.account,
+                reverse=True,
+            )
         }
