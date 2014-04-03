@@ -24,11 +24,11 @@ class ViewTests(unittest.TestCase):
             data['actual_player'],
             [player['name'] for player in PLAYERS.values()]
         )
-        self.assertEquals(data['bet'], 2)
+        self.assertEquals(data['bet'], 10)
         self.assertEquals(data['distribution'], 2)
         self.assertEquals(data['phase'], 'pre-flop')
         self.assertIsInstance(data['players'], deque)
-        self.assertEquals(data['pot'], 3)
+        self.assertEquals(data['pot'], 15)
         self.assertIsInstance(data['table'], Cards)
 
 
@@ -41,6 +41,6 @@ class FunctionalTests(unittest.TestCase):
     def test_home(self):
         resp = self.testapp.get('/', status=200)
         body = resp.body.decode(resp.charset)
-        self.assertIn('DISTRIBUTION', body)
-        self.assertIn('BET', body)
-        self.assertIn('POT', body)
+        self.assertIn('Distribution', body)
+        self.assertIn('Bet', body)
+        self.assertIn('Pot', body)
