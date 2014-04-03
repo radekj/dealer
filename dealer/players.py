@@ -21,7 +21,7 @@ class Player:
 
     def new_distribution(self):
         self.hand = []
-        self.active = True
+        self.active = self.account > 0
         self.deal_bet = 0
         self.winner = False
 
