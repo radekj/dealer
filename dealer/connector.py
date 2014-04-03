@@ -34,4 +34,15 @@ class Connector:
 
         return decison
 
+    def send_chellengers_cards(self, address, data):
+        try:
+            conn = http.client.HTTPConnection(address, timeout=1)
+            params = json.dumps(data)
+            headers = {'Content-type': self.content_type}
+            conn.request('POST', '/chellengers_cards', params, headers)
+            response = conn.getresponse()
+            return
+        except Exception:
+            return
+
 connector = Connector()

@@ -6,6 +6,7 @@ from pokereval.card import Card
 from pokereval.hand_evaluator import HandEvaluator
 
 from dealer.cards import Cards
+from dealer.connector import connector
 from dealer.players import Player
 from dealer import config
 
@@ -16,7 +17,7 @@ cards_for_phase = {'pre-flop': 0, 'flop': 3, 'turn': 4, 'river': 5}
 class Game:
 
     def __init__(self):
-        self.distribution = 1
+        self.distribution = 0
         self.players = deque([
             Player(player_id, player_data)
             for player_id, player_data in config.PLAYERS.items()
@@ -100,6 +101,8 @@ class Game:
                             bet = self.process_bet(player, bet, data)
                         else:
                             bet = blind
+                            if player.account < bet:
+                                player.account = 0
                             self.process_bet(player, bet, data)
                         if bet:
                             player.deal_bet += bet
@@ -135,17 +138,23 @@ class Game:
             return 0
 
     def winner(self):
+        print('winner')
         winner = None
+        final_cards = {}
         table = self.cards.deck[:5]
         for player in self.players:
             if not player.active:
                 continue
+            final_cards[player.player_id] = player.hand
             if not winner:
                 winner = player
                 continue
             if player.hand_value(table) > winner.hand_value(table):
                 winner = player
         winner.winner = True
+        final_cards['table'] = table
+        for player in self.players:
+            connector.send_chellengers_cards(player.address, final_cards)
         return winner
 
 game = Game()
