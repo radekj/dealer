@@ -20,8 +20,8 @@ class TableView:
 
     def get_results(self):
         return sorted(
-            game.players, 
-            key=lambda player: player.account, 
+            game.players,
+            key=lambda player: player.account,
             reverse=True
         )
 
