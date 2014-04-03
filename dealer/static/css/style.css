@@ -6,8 +6,9 @@
 
 body {
     background: url(/static/img/background.jpg) repeat 0 0 #fff;
-    font-family: sans-serif;
+    font-family: Tahoma, sans-serif;
     color: #e8ebd0;
+    text-shadow: #000 0px 0px 10px;
 }
 
 table td {
@@ -27,8 +28,9 @@ div#game-info, div#table-cards, div#results {
 }
 
 div#game-info {
-    width: 200px;
+    width: 300px;
     float: left;
+    font-size: 200%;
 }
 
 div#table-cards {
@@ -59,7 +61,7 @@ div.player div.info {
 }
 div.player div.name{
     margin: 20px;
-    font-size: 120%;
+    font-size: 150%;
 }
 
 div.player div.account{
@@ -81,6 +83,10 @@ div.player div.bet div{
     color: #000;
 }
 
+div.player.actual {
+    background: url(/static/img/highlight.png) repeat 0 0 transparent;
+}
+
 div.player.active div.bet {
     background: url(/static/img/chip-green.png) repeat 0 0 transparent;
     background-size: 200px 200px;
@@ -89,6 +95,10 @@ div.player.active div.bet {
 div.player.inactive div.bet {
     background: url(/static/img/chip-gray.png) repeat 0 0 transparent;
     background-size: 200px 200px;
+}
+
+div.player.winner {
+    background: url(/static/img/highlight-winner.png) repeat 0 0 transparent;
 }
 
 div.player.winner div.bet {
