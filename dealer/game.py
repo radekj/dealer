@@ -101,6 +101,9 @@ class Game:
                             'pot': self.pot,
                             'account': player.account,
                             'limit': config.MAX_BET_LIMIT,
+                            'active_players': [p.player_id for p in \
+                                self.players if p.active and \
+                                    p.player_id != player.player_id]
                         }
                         self.actual_player = player.name
                         if not blind:
