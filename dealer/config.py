@@ -3,6 +3,7 @@ SMALL_BLIND = 5
 BIG_BLIND = 10
 MAX_BET_LIMIT = 20
 DISTRIBUTION = 0
+SHOW_HAND_CARDS = True
 
 PLAYERS = {
     'player1': {
@@ -52,4 +53,5 @@ PLAYERS = {
     # },
 }
 
-from .saves.save_20140404103427 import *
+# uncomment to use save
+#from .saves.save_YYYYMMDDHHMMSS import *

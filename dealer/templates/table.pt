@@ -57,8 +57,13 @@
                 <div tal:content="pot"/>
             </div>
           </div>
-          <div class="cards">
-            <img tal:repeat="card player.hand" src="${request.static_url('dealer:static/img/cards/%s' % view.card_image_name(card))}" />
+          <div class="cards" tal:define="show_cards python: show_hand_cards or (winner is not None and player.active)">
+            <tal:if tal:condition="show_cards">
+              <img tal:repeat="card player.hand" src="${request.static_url('dealer:static/img/cards/%s' % view.card_image_name(card))}" />
+            </tal:if>
+            <tal:else tal:condition="not: show_cards">
+              <img tal:repeat="card player.hand" src="${request.static_url('dealer:static/img/cards/%s' % 'back.png')}" />
+            </tal:else>
           </div>
         </div>
       </tal:player>
@@ -73,8 +78,6 @@
     $(document).keydown(function(e){
       if (active_keys && e.keyCode == 32) {
         active_keys = false;
-        //location.reload();
-        console.log('asdasd');
         $.ajax({
           url: location.href,
           success: function(result) {
@@ -82,8 +85,6 @@
             active_keys = true;
           }
         });
-         
-         
         return false;
       }
     }); 

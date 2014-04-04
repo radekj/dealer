@@ -42,7 +42,7 @@ class Player:
 
     def get_state(self):
         return {
-            'name': self.name ,
+            'name': self.name,
             'account': self.account,
             'address': self.address,
         }

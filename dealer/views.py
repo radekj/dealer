@@ -3,6 +3,7 @@ from pyramid.view import view_config, view_defaults
 from .game import game, cards_for_phase
 from .cards import Cards
 from .utils import card_image_name
+from . import config
 
 
 @view_defaults(renderer='templates/table.pt')
@@ -29,6 +30,7 @@ class TableView:
             'bet': max(player.total_bet() for player in game.players),
             'winner': winners[0].name if winners else None,
             'table_cards': cards_for_phase.get(game.phase),
+            'show_hand_cards': config.SHOW_HAND_CARDS,
             'results': sorted(
                 game.players,
                 key=lambda player: player.account,
