@@ -5,9 +5,6 @@ import random
 from collections import deque
 from datetime import datetime
 
-from pokereval.card import Card
-from pokereval.hand_evaluator import HandEvaluator
-
 from dealer.cards import Cards
 from dealer.connector import connector
 from dealer.players import Player
@@ -42,7 +39,7 @@ class Game:
                 return
             else:
                 for winner in winners:
-                   winner.account += int(self.pot / len(winners))
+                    winner.account += int(self.pot / len(winners))
                 self.make_save()
 
         self.cards = Cards()
@@ -101,9 +98,10 @@ class Game:
                             'pot': self.pot,
                             'account': player.account,
                             'limit': config.MAX_BET_LIMIT,
-                            'active_players': [p.player_id for p in \
-                                self.players if p.active and \
-                                    p.player_id != player.player_id]
+                            'active_players': [
+                                p.player_id for p in self.players
+                                if p.active and p.player_id != player.player_id
+                            ]
                         }
                         self.actual_player = player.name
                         if not blind:
@@ -156,10 +154,10 @@ class Game:
                 continue
             final_cards[player.player_id] = player.hand
             if not winner:
-                winner = [player,]
+                winner = [player, ]
                 continue
             if player.hand_value(table) > winner[0].hand_value(table):
-                winner = [player,]
+                winner = [player, ]
             elif player.hand_value(table) == winner[0].hand_value(table):
                 winner.append(player)
         for i in winner:
