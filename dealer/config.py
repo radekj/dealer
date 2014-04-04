@@ -21,36 +21,36 @@ PLAYERS = {
         'account': START_ACCOUNT,
         'address': 'localhost:4000',
     },
-    # 'player4': {
-    #     'name': 'Salmandia',
-    #     'account': START_ACCOUNT,
-    #     'address': 'localhost:4000',
-    # },
-    # 'player5': {
-    #     'name': 'Power Mergers!',
-    #     'account': START_ACCOUNT,
-    #     'address': 'localhost:4000',
-    # },
-    # 'player6': {
-    #     'name': 'ssh localhost',
-    #     'account': START_ACCOUNT,
-    #     'address': 'localhost:4000',
-    # },
-    # 'player7': {
-    #     'name': 'Avangersi STXa',
-    #     'account': START_ACCOUNT,
-    #     'address': 'localhost:4000',
-    # },
-    # 'player8': {
-    #     'name': 'Hot-dog Team',
-    #     'account': START_ACCOUNT,
-    #     'address': 'localhost:4000',
-    # },
-    # 'player9': {
-    #     'name': 'PYrates',
-    #     'account': START_ACCOUNT,
-    #     'address': 'localhost:4000',
-    # },
+    'player4': {
+        'name': 'Salmandia',
+        'account': START_ACCOUNT,
+        'address': 'localhost:4000',
+    },
+    'player5': {
+        'name': 'Power Mergers!',
+        'account': START_ACCOUNT,
+        'address': 'localhost:4000',
+    },
+    'player6': {
+        'name': 'ssh localhost',
+        'account': START_ACCOUNT,
+        'address': 'localhost:4000',
+    },
+    'player7': {
+        'name': 'Avangersi STXa',
+        'account': START_ACCOUNT,
+        'address': 'localhost:4000',
+    },
+    'player8': {
+        'name': 'Hot-dog Team',
+        'account': START_ACCOUNT,
+        'address': 'localhost:4000',
+    },
+    'player9': {
+        'name': 'PYrates',
+        'account': START_ACCOUNT,
+        'address': 'localhost:4000',
+    },
 }
 
 # uncomment to use save
