@@ -21,7 +21,7 @@
       <table>
         <tr><td>Distribution</td><td tal:content="distribution"></td></tr>
         <tr><td>Pot</td><td tal:content="pot"></td></tr>
-        <tr><td>Bet</td><td tal:content="bet"></td></tr>
+        <!--<tr><td>Bet</td><td tal:content="bet"></td></tr>-->
         <tr tal:condition="winner">
             <td>Winner</td>
             <td>
