@@ -36,12 +36,13 @@ class Game:
 
     def next_deal(self):
         if getattr(self, 'pot', None):
-            winner = self.winner()
+            winners = self.winner()
             if not self.shown:
                 self.shown = True
                 return
             else:
-                winner.account += self.pot
+                for winner in winners:
+                   winner.account += int(self.pot / len(winners))
                 self.make_save()
 
         self.cards = Cards()
@@ -144,7 +145,7 @@ class Game:
             return 0
 
     def winner(self):
-        winner = None
+        winner = []
         final_cards = {}
         table = self.cards.deck[:5]
         for player in self.players:
@@ -152,11 +153,14 @@ class Game:
                 continue
             final_cards[player.player_id] = player.hand
             if not winner:
-                winner = player
+                winner = [player,]
                 continue
-            if player.hand_value(table) > winner.hand_value(table):
-                winner = player
-        winner.winner = True
+            if player.hand_value(table) > winner[0].hand_value(table):
+                winner = [player,]
+            elif player.hand_value(table) == winner[0].hand_value(table):
+                winner.append(player)
+        for i in winner:
+            i.winner = True
         final_cards['table'] = table
         if not self.shown:
             for player in self.players:

@@ -28,7 +28,7 @@ class TableView:
             'distribution': game.distribution,
             'actual_player': game.actual_player,
             'bet': max(player.total_bet() for player in game.players),
-            'winner': winners[0].name if winners else None,
+            'winner': [winner.name for winner in winners],
             'table_cards': cards_for_phase.get(game.phase),
             'show_hand_cards': config.SHOW_HAND_CARDS,
             'results': sorted(
