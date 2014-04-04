@@ -145,7 +145,6 @@ class Game:
             return 0
 
     def winner(self):
-        print('winner')
         winner = None
         final_cards = {}
         table = self.cards.deck[:5]
@@ -160,8 +159,9 @@ class Game:
                 winner = player
         winner.winner = True
         final_cards['table'] = table
-        for player in self.players:
-            connector.send_chellengers_cards(player.address, final_cards)
+        if not self.shown:
+            for player in self.players:
+                connector.send_chellengers_cards(player.address, final_cards)
         return winner
 
     def make_save(self):
