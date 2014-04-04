@@ -1,2 +1,1 @@
-- save and restore custom state procedure
 - test edge cases (equal cards values, check color evaluation ...)
