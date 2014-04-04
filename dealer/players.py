@@ -1,10 +1,8 @@
-import random
-
 from pokereval.card import Card
 from pokereval.hand_evaluator import HandEvaluator
 
 from dealer.connector import connector
-from dealer import config, utils
+from dealer import utils
 
 
 class Player:

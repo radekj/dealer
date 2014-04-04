@@ -5,7 +5,6 @@ import random
 from collections import deque
 from datetime import datetime
 
-
 from pokereval.card import Card
 from pokereval.hand_evaluator import HandEvaluator
 
