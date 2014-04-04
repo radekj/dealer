@@ -2,6 +2,8 @@ START_ACCOUNT = 500
 SMALL_BLIND = 5
 BIG_BLIND = 10
 MAX_BET_LIMIT = 20
+DISTRIBUTION = 0
+SHOW_HAND_CARDS = True
 
 PLAYERS = {
     'player1': {
@@ -50,3 +52,6 @@ PLAYERS = {
     #     'address': 'localhost:4000',
     # },
 }
+
+# uncomment to use save
+#from .saves.save_YYYYMMDDHHMMSS import *
