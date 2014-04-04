@@ -39,3 +39,10 @@ class Player:
         table = [Card(*card) for card in utils.card_values(table)]
         score = HandEvaluator.evaluate_hand(hand, table)
         return score
+
+    def get_state(self):
+        return {
+            'name': self.name ,
+            'account': self.account,
+            'address': self.address,
+        }

@@ -2,6 +2,7 @@ START_ACCOUNT = 500
 SMALL_BLIND = 5
 BIG_BLIND = 10
 MAX_BET_LIMIT = 20
+DISTRIBUTION = 0
 
 PLAYERS = {
     'player1': {
@@ -50,3 +51,5 @@ PLAYERS = {
     #     'address': 'localhost:4000',
     # },
 }
+
+from .saves.save_20140404103427 import *

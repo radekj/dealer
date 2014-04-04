@@ -1,6 +1,10 @@
 import itertools
+import json
+import os.path
 import random
 from collections import deque
+from datetime import datetime
+
 
 from pokereval.card import Card
 from pokereval.hand_evaluator import HandEvaluator
@@ -17,7 +21,7 @@ cards_for_phase = {'pre-flop': 0, 'flop': 3, 'turn': 4, 'river': 5}
 class Game:
 
     def __init__(self):
-        self.distribution = 0
+        self.distribution = config.DISTRIBUTION
         self.players = deque([
             Player(player_id, player_data)
             for player_id, player_data in config.PLAYERS.items()
@@ -39,6 +43,7 @@ class Game:
                 return
             else:
                 winner.account += self.pot
+                self.make_save()
 
         self.cards = Cards()
         self.phases = iter(phases)
@@ -158,6 +163,25 @@ class Game:
         for player in self.players:
             connector.send_chellengers_cards(player.address, final_cards)
         return winner
+
+    def make_save(self):
+        fn = os.path.join(
+            os.path.dirname(__file__),
+            'saves',
+            'save_{0:%Y%m%d%H%M%S}.py'.format(datetime.now())
+        )
+        with open(fn, 'w') as f:
+            tmpl = '# -*- utf-8 -*-\nDISTRIBUTION = {0}\nPLAYERS = {1}\n'
+            players_data = {
+                player.player_id: player.get_state()
+                for player in game.players
+            }
+            f.write(
+                tmpl.format(
+                    game.distribution,
+                    json.dumps(players_data, sort_keys=True, indent=4)
+                )
+            )
 
 game = Game()
 game.next_deal()
