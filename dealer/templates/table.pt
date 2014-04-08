@@ -59,6 +59,9 @@
             <div class="bet" tal:condition="player.name in winner">
                 <div tal:content="int(pot/len(winner))"/>
             </div>
+            <div class="bet" tal:condition="winner and player.name not in winner">
+                <div>&nbsp;</div>
+            </div>
           </div>
           <div class="cards" tal:define="show_cards python: show_hand_cards or (not winner and player.active)">
             <tal:if tal:condition="show_cards">
@@ -77,6 +80,17 @@
   
   <script src="${request.static_url('dealer:static/js/jquery-1.10.1.min.js')}"></script>
   <script  type="text/javascript">
+    function refresh_until_win(){
+      $.ajax({
+        url: location.href,
+        success: function(result) {
+          $("body").html(result, "body");
+          if($('div.winner').length===0){
+            refresh_until_win();
+          }
+        }
+      });
+    }
     var active_keys = true;
     $(document).keydown(function(e){
       if (active_keys && e.keyCode == 32) {
@@ -88,6 +102,9 @@
             active_keys = true;
           }
         });
+      }
+      if (active_keys && e.keyCode == 13) {
+        refresh_until_win();
         return false;
       }
     }); 
